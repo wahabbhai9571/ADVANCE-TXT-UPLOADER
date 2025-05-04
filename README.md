@@ -26,7 +26,7 @@
 
 ## ✅ Pw & Cp Without Purchase Txt Extractor Bot
 
-🥳 Pw & Cp Without Purchase Txt Extractor Bot [Click Here](https://t.me/PwCpTxtExtractorRoBot)
+🥳 Pw , Cp & Appx Without Purchase Txt Extractor Bot [Click Here](https://t.me/RealTxtExtractorRoBot)
  
 
 ## Guide For Heroku Deployment 
