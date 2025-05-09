@@ -6,6 +6,7 @@ import re
 import sys
 import json
 import time
+import m3u8
 import aiohttp
 import asyncio
 import requests
