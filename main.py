@@ -555,25 +555,25 @@ async def upload(bot: Client, m: Message):
         MR = raw_text4
 
     await editable.edit(
-    "𝗡𝗼𝘄 𝗦𝗲𝗻𝗱 𝗧𝗵𝗲 𝗧𝗵𝘂𝗺𝗯𝗻𝗮𝗶𝗹\n\n"
-    "🖼️ You can either:\n"
-    "• Send a **photo directly** 📷\n"
-    "• OR send a **URL** like: `https://graph.org/file/xyz.jpg`\n"
-    "• OR send `no` to skip thumbnail."
-     )
+        "𝗡𝗼𝘄 𝗦𝗲𝗻𝗱 𝗧𝗵𝗲 𝗧𝗵𝘂𝗺𝗯𝗻𝗮𝗶𝗹\n\n"
+        "🖼️ You can either:\n"
+        "• Send a **photo directly** 📷\n"
+        "• OR send a **URL** like: `https://graph.org/file/xyz.jpg`\n"
+        "• OR send `no` to skip thumbnail."
+    )
     input6 = await bot.listen(editable.chat.id)
 
     thumb = None
 
     if input6.photo:
-    thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
-    await input6.download(file_name=thumb_path)
-    thumb = thumb_path
+        thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
+        await input6.download(file_name=thumb_path)
+        thumb = thumb_path
 
     elif input6.text:
-    raw_text6 = input6.text.strip()
-    if raw_text6.lower() == "no":
-        thumb = None
+        raw_text6 = input6.text.strip()
+        if raw_text6.lower() == "no":
+            thumb = None
     elif raw_text6.startswith("http://") or raw_text6.startswith("https://"):
         thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
         getstatusoutput(f"wget '{raw_text6}' -O '{thumb_path}'")
