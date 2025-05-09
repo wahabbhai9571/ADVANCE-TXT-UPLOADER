@@ -18,6 +18,7 @@ import random
 import ffmpeg
 import logging 
 import yt_dlp
+from subprocess import getstatusoutput
 from aiohttp import web
 from core import *
 from urllib.parse import urlparse, parse_qs
