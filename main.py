@@ -553,26 +553,50 @@ async def upload(bot: Client, m: Message):
         MR = token
     else:
         MR = raw_text4
-    
-    await editable.edit("𝗡𝗼𝘄 𝗦𝗲𝗻𝗱 𝗧𝗵𝗲 𝗧𝗵𝘂𝗺𝗯 𝗨𝗿𝗹 𝗘𝗴 » https://graph.org/file/13a89d77002442255efad-989ac290c1b3f13b44.jpg\n\n𝗢𝗿 𝗜𝗳 𝗗𝗼𝗻'𝘁 𝗪𝗮𝗻𝘁 𝗧𝗵𝘂𝗺𝗯𝗻𝗮𝗶𝗹 𝗦𝗲𝗻𝗱 = 𝗻𝗼")
-    input6 = message = await bot.listen(editable.chat.id)
-    raw_text6 = input6.text
+
+    await editable.edit(
+    "𝗡𝗼𝘄 𝗦𝗲𝗻𝗱 𝗧𝗵𝗲 𝗧𝗵𝘂𝗺𝗯𝗻𝗮𝗶𝗹\n\n"
+    "🖼️ You can either:\n"
+    "• Send a **photo directly** 📷\n"
+    "• OR send a **URL** like: `https://graph.org/file/xyz.jpg`\n"
+    "• OR send `no` to skip thumbnail."
+     )
+    input6 = await bot.listen(editable.chat.id)
+
+    thumb = None
+
+    if input6.photo:
+    thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
+    await input6.download(file_name=thumb_path)
+    thumb = thumb_path
+
+    elif input6.text:
+    raw_text6 = input6.text.strip()
+    if raw_text6.lower() == "no":
+        thumb = None
+    elif raw_text6.startswith("http://") or raw_text6.startswith("https://"):
+        thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
+        getstatusoutput(f"wget '{raw_text6}' -O '{thumb_path}'")
+        thumb = thumb_path
+    else:
+        await editable.edit("❌ Invalid input. Please send a photo, a valid URL, or 'no'.")
+        return
+
     await input6.delete(True)
     await editable.delete()
 
-    #if input6.photo:
-        #thumb = await input6.download()  # Use the photo sent by the user
-    #elif raw_text6.startswith("http://") or raw_text6.startswith("https://"):
-        # If a URL is provided, download thumbnail from the URL
-        #getstatusoutput(f"wget '{raw_text6}' -O 'thumb.jpg'")
+   # await editable.edit("𝗡𝗼𝘄 𝗦𝗲𝗻𝗱 𝗧𝗵𝗲 𝗧𝗵𝘂𝗺𝗯 𝗨𝗿𝗹 𝗘𝗴 » https://graph.org/file/13a89d77002442255efad-989ac290c1b3f13b44.jpg\n\n𝗢𝗿 𝗜𝗳 𝗗𝗼𝗻'𝘁 𝗪𝗮𝗻𝘁 𝗧𝗵𝘂𝗺𝗯𝗻𝗮𝗶𝗹 𝗦𝗲𝗻𝗱 = 𝗻𝗼")
+    #input6 = message = await bot.listen(editable.chat.id)
+    #raw_text6 = input6.text
+    #await input6.delete(True)
+    #await editable.delete()
+
+    #thumb = input6.text
+    #if thumb.startswith("http://") or thumb.startswith("https://"):
+        #getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
         #thumb = "thumb.jpg"
-        
-    thumb = input6.text
-    if thumb.startswith("http://") or thumb.startswith("https://"):
-        getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
-        thumb = "thumb.jpg"
-    else:
-        thumb == "no"
+    #else:
+        #thumb == "no"
     failed_count =0
     if len(links) == 1:
         count = 1
