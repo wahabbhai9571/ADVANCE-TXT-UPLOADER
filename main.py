@@ -574,13 +574,13 @@ async def upload(bot: Client, m: Message):
         raw_text6 = input6.text.strip()
         if raw_text6.lower() == "no":
             thumb = None
-    elif raw_text6.startswith("http://") or raw_text6.startswith("https://"):
-        thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
-        getstatusoutput(f"wget '{raw_text6}' -O '{thumb_path}'")
-        thumb = thumb_path
-    else:
-        await editable.edit("❌ Invalid input. Please send a photo, a valid URL, or 'no'.")
-        return
+        elif raw_text6.startswith("http://") or raw_text6.startswith("https://"):
+            thumb_path = f"downloads/thumb_{input6.from_user.id}.jpg"
+            getstatusoutput(f"wget '{raw_text6}' -O '{thumb_path}'")
+            thumb = thumb_path
+        else:
+            await editable.edit("❌ Invalid input. Please send a photo, a valid URL, or 'no'.")
+            return
 
     await input6.delete(True)
     await editable.delete()
